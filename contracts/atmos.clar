@@ -125,6 +125,7 @@
         status: "active"
       }
     )
+    (print {event: "register-dataset", dataset-id: dataset-id, owner: owner-principal, name: name, public: is-public})
     
     (let (
       (current-list (default-to { dataset-ids: (list) } (map-get? datasets-by-owner { owner: owner-principal })))
@@ -162,6 +163,7 @@
         is-public: is-public
       })
     )
+    (print {event: "update-dataset-metadata", dataset-id: dataset-id, owner: (get owner dataset), name: name, public: is-public})
     (ok true)
   )
 )
@@ -175,6 +177,7 @@
       { dataset-id: dataset-id }
       (merge dataset { metadata-frozen: true })
     )
+    (print {event: "freeze-dataset-metadata", dataset-id: dataset-id, owner: (get owner dataset)})
     (ok true)
   )
 )
@@ -191,6 +194,7 @@
       { dataset-id: dataset-id }
       (merge dataset { owner: new-owner })
     )
+    (print {event: "transfer-dataset", dataset-id: dataset-id, from: (get owner dataset), to: new-owner})
     (ok true)
   )
 )
@@ -200,6 +204,7 @@
   (begin
     (asserts! (is-eq tx-sender (var-get contract-admin)) ERR-NOT-AUTHORIZED)
     (var-set contract-admin new-admin)
+    (print {event: "set-contract-admin", admin: new-admin})
     (ok new-admin)
   )
 )
@@ -209,6 +214,7 @@
   (begin
     (asserts! (is-eq tx-sender (var-get contract-admin)) ERR-NOT-AUTHORIZED)
     (var-set contract-paused paused)
+    (print {event: "set-paused", paused: paused})
     (ok paused)
   )
 )

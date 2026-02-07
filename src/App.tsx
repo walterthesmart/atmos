@@ -47,6 +47,8 @@ function App() {
 
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                <p className="text-center text-blue-300 mb-2">Witaj w Atmos!</p>
+                <p className="text-center text-sm text-gray-400 mb-4">Dostępnych datasetów: {MOCK_DATASETS.length}</p>
 
                 {/* Header Section */}
                 <div className="mb-12 text-center animate-fade-in">
